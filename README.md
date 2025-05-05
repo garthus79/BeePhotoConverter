@@ -5,5 +5,6 @@ A simple photo converter that converts HEIC / HEIF files to JPG. This was create
 It uses the following Nuget packages / libraries:\
 Magick .NET Core\
 Magick .NET.SystemDrawing\
-Magick .NET-Q16-x64\
+Magick .NET-Q16-x64
+
 
