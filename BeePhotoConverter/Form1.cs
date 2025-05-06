@@ -179,7 +179,11 @@ namespace BeePhotoConverter
         {
             lstResults.Items.Clear(); 
             lstSource.Items.Clear();
-            pctPreview.Image.Dispose();
+            if (pctPreview.Image != null)
+            {
+                pctPreview.Image.Dispose();
+
+            }
             pctPreview.Image = null; // Clear the preview image
         }
 
@@ -190,5 +194,24 @@ namespace BeePhotoConverter
                 aboutDialog.ShowDialog();
             }
         }
+
+        private void btnFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "Select the folder containing HEIF images";
+            folderBrowserDialog.ShowNewFolderButton = false;
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                lstSource.Items.Clear(); // Clear previous selections
+                lstSource.Enabled = true; // Enable the list box
+                string[] files = Directory.GetFiles(folderBrowserDialog.SelectedPath, "*.heif");
+                foreach (string file in files)
+                {
+                    // Add the selected file to the list
+                    lstSource.Items.Add(file);
+                }
+            }
+        }
+
     }
 }
