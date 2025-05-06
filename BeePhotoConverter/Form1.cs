@@ -95,11 +95,15 @@ namespace BeePhotoConverter
                     string alternatePath = Path.Combine(txtAlternatePath.Text, Path.GetFileName(jpegPath));
                     jpegPath = alternatePath;
 
-                    //Save the alternate path to a file for future use
+                    //Save the alternate path to settings for future use
+                    
+                    
                     string projectPath = Path.GetDirectoryName(Application.ExecutablePath);
                     string filePath = Path.Combine(projectPath, "LastUsedPath.txt");
                     string content = txtAlternatePath.Text;
-                    File.WriteAllText(filePath, content);
+                    Properties.Settings.Default.LastUsedPath = content;
+                    Properties.Settings.Default.Save();
+                    //File.WriteAllText(filePath, content);
                 }
 
                 try
@@ -147,10 +151,10 @@ namespace BeePhotoConverter
                 btnAlternatePath.Enabled = true;
                 string projectPath = Path.GetDirectoryName(Application.ExecutablePath);
                 string filePath = Path.Combine(projectPath, "LastUsedPath.txt");
-                if (File.Exists(filePath))
+                
+                if (Properties.Settings.Default.LastUsedPath != null && Properties.Settings.Default.LastUsedPath != "")
                 {
-                    string content = File.ReadAllText(filePath);
-                    txtAlternatePath.Text = content;
+                    txtAlternatePath.Text = Properties.Settings.Default.LastUsedPath;
                 }
                 else
                 {
